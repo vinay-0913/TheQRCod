@@ -1,0 +1,240 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import {
+  PlusCircle,
+  ExternalLink,
+  BarChart3,
+  Pause,
+  Play,
+  Trash2,
+  Copy,
+  Check,
+  QrCode,
+} from "lucide-react";
+import Button from "@/components/ui/Button";
+import Badge from "@/components/ui/Badge";
+import QRThumbnail from "@/components/qr/QRThumbnail";
+
+interface QRCode {
+  _id: string;
+  name: string;
+  shortCode: string;
+  targetUrl: string;
+  status: "active" | "paused";
+  totalScans: number;
+  createdAt: string;
+  qrDesign: any;
+}
+
+export default function DashboardPage() {
+  const [qrCodes, setQrCodes] = useState<QRCode[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchQRCodes();
+  }, []);
+
+  const fetchQRCodes = async () => {
+    try {
+      const res = await fetch("/api/qr");
+      if (res.ok) {
+        const data = await res.json();
+        setQrCodes(data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch QR codes:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const toggleStatus = async (id: string, currentStatus: string) => {
+    const newStatus = currentStatus === "active" ? "paused" : "active";
+    try {
+      const res = await fetch(`/api/qr/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      if (res.ok) {
+        setQrCodes((prev) =>
+          prev.map((qr) =>
+            qr._id === id ? { ...qr, status: newStatus } : qr
+          )
+        );
+      }
+    } catch (err) {
+      console.error("Failed to update status:", err);
+    }
+  };
+
+  const deleteQR = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this QR code?")) return;
+    try {
+      const res = await fetch(`/api/qr/${id}`, { method: "DELETE" });
+      if (res.ok) {
+        setQrCodes((prev) => prev.filter((qr) => qr._id !== id));
+      }
+    } catch (err) {
+      console.error("Failed to delete QR code:", err);
+    }
+  };
+
+  const copyLink = (shortCode: string, id: string) => {
+    const url =
+      typeof window !== "undefined"
+        ? `${window.location.origin}/r/${shortCode}`
+        : `https://theqrcod.com/r/${shortCode}`;
+    navigator.clipboard.writeText(url);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin h-8 w-8 border-2 border-accent border-t-transparent rounded-full" />
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h1 className="text-2xl font-semibold text-ink">My QR Codes</h1>
+          <p className="text-sm text-body-mid mt-1">
+            {qrCodes.length} dynamic QR code{qrCodes.length !== 1 ? "s" : ""}
+          </p>
+        </div>
+        <Link href="/dashboard/create">
+          <Button>
+            <PlusCircle className="h-4 w-4" aria-hidden="true" />
+            Create New
+          </Button>
+        </Link>
+      </div>
+
+      {qrCodes.length === 0 ? (
+        /* Empty state */
+        <div className="bg-canvas rounded-md border border-hairline p-12 text-center">
+          <QrCode className="h-12 w-12 text-mute mx-auto mb-4" aria-hidden="true" />
+          <h2 className="text-lg font-semibold text-ink mb-2">
+            No dynamic QR codes yet
+          </h2>
+          <p className="text-sm text-body-mid mb-6 max-w-md mx-auto">
+            Create your first dynamic QR code to start tracking scans,
+            editing destinations, and accessing analytics.
+          </p>
+          <Link href="/dashboard/create">
+            <Button>
+              <PlusCircle className="h-4 w-4" aria-hidden="true" />
+              Create Your First QR Code
+            </Button>
+          </Link>
+        </div>
+      ) : (
+        /* QR code list */
+        <div className="space-y-3">
+          {qrCodes.map((qr) => (
+            <div
+              key={qr._id}
+              className="bg-canvas rounded-md border border-hairline p-5 flex flex-col sm:flex-row sm:items-center gap-4 hover:shadow-card transition-shadow duration-150"
+            >
+              {/* Thumbnail */}
+              <div className="shrink-0 hidden sm:block">
+                <QRThumbnail
+                  data={`${typeof window !== "undefined" ? window.location.origin : "https://theqrcod.com"}/r/${qr.shortCode}`}
+                  design={qr.qrDesign || {}}
+                  size={64}
+                />
+              </div>
+
+              {/* Info */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <Link
+                    href={`/dashboard/${qr._id}`}
+                    className="text-base font-semibold text-ink hover:text-accent truncate"
+                  >
+                    {qr.name}
+                  </Link>
+                  <Badge variant={qr.status === "active" ? "success" : "warning"}>
+                    {qr.status}
+                  </Badge>
+                </div>
+                <p className="text-sm text-body-mid truncate">{qr.targetUrl}</p>
+                <p className="text-xs text-mute mt-1">
+                  Created {new Date(qr.createdAt).toLocaleDateString()}
+                </p>
+              </div>
+
+              {/* Stats */}
+              <div className="flex items-center gap-6 shrink-0">
+                <div className="text-center">
+                  <p className="text-xl font-semibold text-ink">{qr.totalScans}</p>
+                  <p className="text-xs text-mute">Scans</p>
+                </div>
+
+                {/* Actions */}
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => copyLink(qr.shortCode, qr._id)}
+                    className="p-2 rounded-sm hover:bg-canvas-alt text-body-mid hover:text-ink transition-colors cursor-pointer"
+                    title="Copy short link"
+                  >
+                    {copiedId === qr._id ? (
+                      <Check className="h-4 w-4 text-success" />
+                    ) : (
+                      <Copy className="h-4 w-4" />
+                    )}
+                  </button>
+                  <Link
+                    href={`/dashboard/${qr._id}`}
+                    className="p-2 rounded-sm hover:bg-canvas-alt text-body-mid hover:text-ink transition-colors"
+                    title="View analytics"
+                  >
+                    <BarChart3 className="h-4 w-4" />
+                  </Link>
+                  <a
+                    href={qr.targetUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-sm hover:bg-canvas-alt text-body-mid hover:text-ink transition-colors"
+                    title="Open target URL"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => toggleStatus(qr._id, qr.status)}
+                    className="p-2 rounded-sm hover:bg-canvas-alt text-body-mid hover:text-ink transition-colors cursor-pointer"
+                    title={qr.status === "active" ? "Pause" : "Activate"}
+                  >
+                    {qr.status === "active" ? (
+                      <Pause className="h-4 w-4" />
+                    ) : (
+                      <Play className="h-4 w-4" />
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => deleteQR(qr._id)}
+                    className="p-2 rounded-sm hover:bg-error-light text-body-mid hover:text-error transition-colors cursor-pointer"
+                    title="Delete"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
