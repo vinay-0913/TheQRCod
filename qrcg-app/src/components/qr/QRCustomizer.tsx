@@ -97,7 +97,7 @@ function StyleSelector({
             onClick={() => onChange(opt.value)}
             className={`px-3 py-1.5 rounded-sm text-sm font-medium border transition-colors cursor-pointer ${
               value === opt.value
-                ? "bg-accent text-white border-accent"
+                ? "bg-primary text-white border-primary"
                 : "bg-canvas text-body border-hairline hover:border-hairline-strong"
             }`}
           >
@@ -287,7 +287,7 @@ export default function QRCustomizer({ config, onChange }: QRCustomizerProps) {
               whitespace-nowrap transition-colors duration-150 cursor-pointer border
               ${
                 activeTab === id
-                  ? "bg-accent text-white border-accent"
+                  ? "bg-primary text-white border-primary"
                   : "bg-canvas text-body border-hairline hover:border-hairline-strong"
               }
             `}

@@ -47,13 +47,13 @@ export default function LoginPage() {
           {/* Logo */}
           <div className="text-center mb-8">
             <Link href="/" className="inline-flex items-center gap-2 text-ink font-semibold text-xl">
-              <QrCode className="h-8 w-8 text-accent" aria-hidden="true" />
+              <QrCode className="h-8 w-8 text-ink" aria-hidden="true" />
               TheQRCod
             </Link>
           </div>
 
           {/* Card */}
-          <div className="bg-canvas rounded-md border border-hairline p-8">
+          <div className="bg-canvas rounded-lg border border-hairline p-8 shadow-card">
             <h1 className="text-2xl font-semibold text-ink text-center mb-2">
               Welcome back
             </h1>
@@ -62,7 +62,7 @@ export default function LoginPage() {
             </p>
 
             {error && (
-              <div className="mb-6 p-3 rounded-sm bg-error-light text-error text-sm" role="alert">
+              <div className="mb-6 p-3 rounded-md bg-error-light text-error text-sm" role="alert">
                 {error}
               </div>
             )}
@@ -98,7 +98,7 @@ export default function LoginPage() {
 
           <p className="text-sm text-body-mid text-center mt-6">
             Don&apos;t have an account?{" "}
-            <Link href="/signup" className="text-accent font-medium hover:underline">
+            <Link href="/signup" className="text-ink font-medium underline underline-offset-4 hover:text-primary-active">
               Sign up
             </Link>
           </p>

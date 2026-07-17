@@ -204,7 +204,7 @@ export default function QRDetailPage({
             onClick={() => setPeriod(p.value)}
             className={`px-3 py-1.5 rounded-sm text-sm font-medium border transition-colors cursor-pointer ${
               period === p.value
-                ? "bg-accent text-white border-accent"
+                ? "bg-primary text-white border-primary"
                 : "bg-canvas text-body border-hairline hover:border-hairline-strong"
             }`}
           >
@@ -307,7 +307,7 @@ export default function QRDetailPage({
                     </span>
                     <div className="w-20 h-1.5 bg-canvas-alt rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-accent rounded-full"
+                        className="h-full bg-ink rounded-full"
                         style={{ width: `${pct}%` }}
                       />
                     </div>
@@ -345,7 +345,7 @@ export default function QRDetailPage({
                     </span>
                     <div className="w-20 h-1.5 bg-canvas-alt rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-accent rounded-full"
+                        className="h-full bg-ink rounded-full"
                         style={{ width: `${pct}%` }}
                       />
                     </div>

@@ -25,7 +25,7 @@ export default function Navbar() {
           href="/"
           className="flex items-center gap-2 text-ink font-semibold text-lg tracking-tight hover:opacity-80 transition-opacity"
         >
-          <QrCode className="h-7 w-7 text-accent" aria-hidden="true" />
+          <QrCode className="h-7 w-7 text-ink" aria-hidden="true" />
           <span className="hidden sm:inline">TheQRCod</span>
         </Link>
 
@@ -35,7 +35,7 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-body hover:text-ink transition-colors duration-150"
+              className="text-sm font-medium text-body-mid hover:text-ink transition-colors duration-150"
             >
               {link.label}
             </Link>

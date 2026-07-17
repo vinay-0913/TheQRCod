@@ -86,20 +86,19 @@ export default function HomePage() {
 
       <main>
         {/* ─── HERO ─── */}
-        <section className="relative overflow-hidden bg-canvas">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--color-accent-light)_0%,_transparent_60%)] opacity-60" />
-          <div className="container-main relative py-24 md:py-32 lg:py-40">
+        <section className="bg-canvas py-24 md:py-32 lg:py-40">
+          <div className="container-main">
             <div className="max-w-3xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-light text-accent text-sm font-medium mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-card text-ink text-sm font-medium mb-8">
                 <Zap className="h-4 w-4" aria-hidden="true" />
                 Free forever · No signup needed
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-ink tracking-tight leading-[1.1]">
+              <h1 className="display-heading text-4xl md:text-5xl lg:text-6xl font-semibold text-ink leading-[1.05]">
                 Generate QR Codes
                 <br />
-                <span className="text-accent">That Actually Work</span>
+                That Actually Work
               </h1>
-              <p className="mt-6 text-lg md:text-xl text-body-mid leading-relaxed prose-width mx-auto">
+              <p className="mt-6 text-lg md:text-xl text-body leading-relaxed prose-width mx-auto">
                 Create free static QR codes instantly, or unlock dynamic QR
                 codes with scan analytics, editable destinations, and real-time
                 tracking.
@@ -122,13 +121,13 @@ export default function HomePage() {
         </section>
 
         {/* ─── FEATURE SPLIT: Static vs Dynamic ─── */}
-        <section className="bg-canvas-alt py-20 md:py-28">
+        <section className="bg-surface-soft py-24">
           <div className="container-main">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-semibold text-ink tracking-tight">
+              <h2 className="display-heading text-3xl md:text-4xl font-semibold text-ink leading-tight">
                 Two Tools, One Platform
               </h2>
-              <p className="mt-4 text-lg text-body-mid max-w-2xl mx-auto">
+              <p className="mt-4 text-lg text-body max-w-2xl mx-auto">
                 Choose the right QR code for your needs. Static for quick
                 sharing, dynamic for tracking and control.
               </p>
@@ -136,10 +135,10 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Static card */}
-              <div className="bg-canvas rounded-md border border-hairline p-8 md:p-10 flex flex-col">
+              <div className="bg-canvas rounded-lg border border-hairline p-8 md:p-10 flex flex-col shadow-card">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="h-12 w-12 rounded-md bg-accent-light flex items-center justify-center">
-                    <QrCode className="h-6 w-6 text-accent" aria-hidden="true" />
+                  <div className="h-12 w-12 rounded-lg bg-surface-card flex items-center justify-center">
+                    <QrCode className="h-6 w-6 text-ink" aria-hidden="true" />
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-ink">
@@ -150,7 +149,7 @@ export default function HomePage() {
                     </span>
                   </div>
                 </div>
-                <p className="text-body-mid mb-8 leading-relaxed">
+                <p className="text-body mb-8 leading-relaxed">
                   Generate QR codes that encode data directly. Perfect for
                   business cards, flyers, and one-time links. No account
                   needed — create and download instantly.
@@ -181,25 +180,25 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Dynamic card — visually distinct */}
-              <div className="bg-primary text-on-primary rounded-md p-8 md:p-10 flex flex-col relative overflow-hidden">
-                <div className="absolute top-4 right-4 px-2.5 py-1 rounded-sm bg-accent text-white text-xs font-semibold">
+              {/* Dynamic card — dark featured */}
+              <div className="bg-surface-dark text-on-dark rounded-lg p-8 md:p-10 flex flex-col relative overflow-hidden">
+                <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-surface-dark-elevated text-on-dark text-xs font-semibold border border-white/10">
                   PRO
                 </div>
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="h-12 w-12 rounded-md bg-white/10 flex items-center justify-center">
+                  <div className="h-12 w-12 rounded-lg bg-white/10 flex items-center justify-center">
                     <BarChart3 className="h-6 w-6 text-white" aria-hidden="true" />
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-white">
                       Dynamic QR Codes
                     </h3>
-                    <span className="text-sm font-medium text-accent-subtle">
+                    <span className="text-sm font-medium text-on-dark-soft">
                       Trackable & Editable
                     </span>
                   </div>
                 </div>
-                <p className="text-mute-soft mb-8 leading-relaxed">
+                <p className="text-on-dark-soft mb-8 leading-relaxed">
                   QR codes that redirect through our servers. Edit the
                   destination URL anytime. Track every scan with detailed
                   analytics — device, location, time.
@@ -215,7 +214,7 @@ export default function HomePage() {
                       key={feature}
                       className="flex items-center gap-3 text-sm text-white/80"
                     >
-                      <Check className="h-4 w-4 text-accent shrink-0" aria-hidden="true" />
+                      <Check className="h-4 w-4 text-badge-emerald shrink-0" aria-hidden="true" />
                       {feature}
                     </li>
                   ))}
@@ -237,13 +236,13 @@ export default function HomePage() {
         </section>
 
         {/* ─── HOW IT WORKS ─── */}
-        <section className="bg-canvas py-20 md:py-28">
+        <section className="bg-canvas py-24">
           <div className="container-main">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-semibold text-ink tracking-tight">
+              <h2 className="display-heading text-3xl md:text-4xl font-semibold text-ink leading-tight">
                 Create a QR Code in Seconds
               </h2>
-              <p className="mt-4 text-lg text-body-mid">
+              <p className="mt-4 text-lg text-body">
                 Three steps. No complexity.
               </p>
             </div>
@@ -267,13 +266,13 @@ export default function HomePage() {
                 },
               ].map((step, i) => (
                 <div key={i} className="text-center">
-                  <div className="h-14 w-14 rounded-md bg-accent-light flex items-center justify-center mx-auto mb-5">
-                    <step.icon className="h-7 w-7 text-accent" aria-hidden="true" />
+                  <div className="h-14 w-14 rounded-lg bg-surface-card flex items-center justify-center mx-auto mb-5">
+                    <step.icon className="h-7 w-7 text-ink" aria-hidden="true" />
                   </div>
                   <h3 className="text-lg font-semibold text-ink mb-2">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-body-mid leading-relaxed">
+                  <p className="text-sm text-body leading-relaxed">
                     {step.desc}
                   </p>
                 </div>
@@ -283,13 +282,13 @@ export default function HomePage() {
         </section>
 
         {/* ─── DYNAMIC QR BENEFITS ─── */}
-        <section className="bg-canvas-alt py-20 md:py-28">
+        <section className="bg-surface-soft py-24">
           <div className="container-main">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-semibold text-ink tracking-tight">
+              <h2 className="display-heading text-3xl md:text-4xl font-semibold text-ink leading-tight">
                 Why Go Dynamic?
               </h2>
-              <p className="mt-4 text-lg text-body-mid max-w-2xl mx-auto">
+              <p className="mt-4 text-lg text-body max-w-2xl mx-auto">
                 Static QR codes are great for simple sharing. Dynamic QR codes
                 give you control and insights.
               </p>
@@ -320,13 +319,13 @@ export default function HomePage() {
               ].map((benefit, i) => (
                 <div
                   key={i}
-                  className="bg-canvas rounded-md border border-hairline p-6 hover:shadow-card-hover transition-shadow duration-200"
+                  className="bg-surface-card rounded-lg p-8 hover:shadow-card-hover transition-shadow duration-200"
                 >
-                  <benefit.icon className="h-6 w-6 text-accent mb-4" aria-hidden="true" />
+                  <benefit.icon className="h-6 w-6 text-ink mb-4" aria-hidden="true" />
                   <h3 className="text-base font-semibold text-ink mb-2">
                     {benefit.title}
                   </h3>
-                  <p className="text-sm text-body-mid leading-relaxed">
+                  <p className="text-sm text-body leading-relaxed">
                     {benefit.desc}
                   </p>
                 </div>
@@ -336,26 +335,26 @@ export default function HomePage() {
         </section>
 
         {/* ─── PRICING ─── */}
-        <section className="bg-canvas py-20 md:py-28" id="pricing">
+        <section className="bg-canvas py-24" id="pricing">
           <div className="container-main">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-semibold text-ink tracking-tight">
+              <h2 className="display-heading text-3xl md:text-4xl font-semibold text-ink leading-tight">
                 Simple, Transparent Pricing
               </h2>
-              <p className="mt-4 text-lg text-body-mid">
+              <p className="mt-4 text-lg text-body">
                 Start free. Upgrade when you need dynamic features.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
               {/* Free tier */}
-              <div className="bg-canvas rounded-md border border-hairline p-8">
+              <div className="bg-canvas rounded-lg border border-hairline p-8 shadow-card">
                 <h3 className="text-lg font-semibold text-ink">Free</h3>
                 <div className="mt-4 flex items-baseline gap-1">
-                  <span className="text-4xl font-semibold text-ink">$0</span>
+                  <span className="display-heading text-4xl font-semibold text-ink">$0</span>
                   <span className="text-body-mid">/forever</span>
                 </div>
-                <p className="mt-4 text-sm text-body-mid">
+                <p className="mt-4 text-sm text-body">
                   Everything you need for static QR codes.
                 </p>
                 <ul className="mt-8 space-y-3">
@@ -378,19 +377,19 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Pro tier — featured */}
-              <div className="bg-primary text-on-primary rounded-md p-8 relative">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-accent text-white text-xs font-semibold">
+              {/* Pro tier — featured dark */}
+              <div className="bg-surface-dark text-on-dark rounded-lg p-8 relative">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-surface-dark-elevated text-on-dark text-xs font-semibold border border-white/10">
                   Most Popular
                 </div>
                 <h3 className="text-lg font-semibold text-white">Pro</h3>
                 <div className="mt-4 flex items-baseline gap-1">
-                  <span className="text-4xl font-semibold text-white">
+                  <span className="display-heading text-4xl font-semibold text-white">
                     $6.99
                   </span>
-                  <span className="text-mute-soft">/month</span>
+                  <span className="text-on-dark-soft">/month</span>
                 </div>
-                <p className="mt-4 text-sm text-mute-soft">
+                <p className="mt-4 text-sm text-on-dark-soft">
                   Dynamic QR codes with full analytics.
                 </p>
                 <ul className="mt-8 space-y-3">
@@ -399,7 +398,7 @@ export default function HomePage() {
                       key={f}
                       className="flex items-center gap-3 text-sm text-white/80"
                     >
-                      <Check className="h-4 w-4 text-accent shrink-0" aria-hidden="true" />
+                      <Check className="h-4 w-4 text-badge-emerald shrink-0" aria-hidden="true" />
                       {f}
                     </li>
                   ))}
@@ -420,10 +419,10 @@ export default function HomePage() {
         </section>
 
         {/* ─── FAQ ─── */}
-        <section className="bg-canvas-alt py-20 md:py-28">
+        <section className="bg-canvas py-24">
           <div className="container-main max-w-3xl">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-semibold text-ink tracking-tight">
+              <h2 className="display-heading text-3xl md:text-4xl font-semibold text-ink leading-tight">
                 Frequently Asked Questions
               </h2>
             </div>
@@ -432,21 +431,18 @@ export default function HomePage() {
         </section>
 
         {/* ─── FINAL CTA ─── */}
-        <section className="bg-primary py-20 md:py-24">
+        <section className="bg-surface-card py-24">
           <div className="container-main text-center">
-            <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight">
+            <h2 className="display-heading text-3xl md:text-4xl font-semibold text-ink leading-tight">
               Ready to Create Your First QR Code?
             </h2>
-            <p className="mt-4 text-lg text-mute-soft max-w-xl mx-auto">
+            <p className="mt-4 text-lg text-body max-w-xl mx-auto">
               No signup. No credit card. Just paste your link and download a
               beautiful QR code in seconds.
             </p>
             <div className="mt-8">
               <Link href="/generator">
-                <Button
-                  size="lg"
-                  className="bg-white text-ink hover:bg-white/90"
-                >
+                <Button size="lg">
                   Create Free QR Code
                   <ArrowRight className="h-5 w-5" aria-hidden="true" />
                 </Button>

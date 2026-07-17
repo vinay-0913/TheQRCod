@@ -20,19 +20,19 @@ const footerLinks = {
 
 export default function Footer() {
   return (
-    <footer className="bg-primary text-on-primary" role="contentinfo">
+    <footer className="bg-surface-dark text-on-dark-soft" role="contentinfo">
       <div className="container-main py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
             <Link
               href="/"
-              className="flex items-center gap-2 text-on-primary font-semibold text-lg tracking-tight mb-4"
+              className="flex items-center gap-2 text-on-dark font-semibold text-lg tracking-tight mb-4"
             >
               <QrCode className="h-6 w-6" aria-hidden="true" />
               TheQRCod
             </Link>
-            <p className="text-sm text-mute-soft leading-relaxed max-w-xs">
+            <p className="text-sm text-on-dark-soft leading-relaxed max-w-xs">
               Free static QR codes. Powerful dynamic QR codes with analytics.
               Built for simplicity.
             </p>
@@ -41,7 +41,7 @@ export default function Footer() {
           {/* Link columns */}
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
-              <h3 className="text-sm font-semibold text-on-primary mb-4">
+              <h3 className="text-sm font-semibold text-on-dark mb-4">
                 {category}
               </h3>
               <ul className="space-y-3">
@@ -49,7 +49,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-mute-soft hover:text-on-primary transition-colors duration-150"
+                      className="text-sm text-on-dark-soft hover:text-on-dark transition-colors duration-150"
                     >
                       {link.label}
                     </Link>
@@ -62,7 +62,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-white/10">
-          <p className="text-sm text-mute-soft text-center">
+          <p className="text-sm text-on-dark-soft text-center">
             © {new Date().getFullYear()} The QR Code Generator. All rights
             reserved.
           </p>

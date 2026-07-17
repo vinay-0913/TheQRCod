@@ -29,7 +29,7 @@ export default function Accordion({ items }: AccordionProps) {
               aria-controls={`accordion-panel-${index}`}
               id={`accordion-trigger-${index}`}
             >
-              <span className="text-base font-medium text-ink pr-4 group-hover:text-accent transition-colors duration-150">
+              <span className="text-base font-medium text-ink pr-4">
                 {item.question}
               </span>
               <ChevronDown

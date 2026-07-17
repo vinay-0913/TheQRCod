@@ -2,62 +2,85 @@
 
 /* ============================================================
    DESIGN TOKENS — The QR Code Generator
-   Adapted from DESIGN.md (Webflow-inspired) with own identity.
-   Color strategy: Committed — electric indigo accent + near-black ink
-   on white canvas. Weight ceiling 600. Inter family throughout.
+   Cal.com-inspired: clean white canvas, black primary CTAs,
+   Inter body + display headlines with tight letter-spacing.
+   Surface-card light gray cards, dark near-black footer.
    ============================================================ */
 
 @theme {
-  /* ── Brand & Accent ── */
-  --color-primary: #080808;
+  /* ── Brand & Primary ── */
+  --color-primary: #111111;
+  --color-primary-active: #242424;
+  --color-primary-disabled: #e5e7eb;
   --color-on-primary: #ffffff;
-  --color-accent: #4F46E5;
-  --color-accent-hover: #4338CA;
-  --color-accent-light: #EEF2FF;
-  --color-accent-subtle: #E0E7FF;
+
+  /* ── Accent (used sparingly — inline links, small highlights) ── */
+  --color-accent: #3b82f6;
+  --color-accent-hover: #2563eb;
+  --color-accent-light: #eff6ff;
+  --color-accent-subtle: #dbeafe;
 
   /* ── Surfaces ── */
   --color-canvas: #ffffff;
-  --color-canvas-alt: #F9FAFB;
-  --color-hairline: #E5E7EB;
-  --color-hairline-strong: #D1D5DB;
+  --color-canvas-alt: #f8f9fa;
+  --color-surface-soft: #f8f9fa;
+  --color-surface-card: #f5f5f5;
+  --color-surface-strong: #e5e7eb;
+  --color-surface-dark: #101010;
+  --color-surface-dark-elevated: #1a1a1a;
+
+  /* ── Borders ── */
+  --color-hairline: #e5e7eb;
+  --color-hairline-strong: #d1d5db;
+  --color-hairline-soft: #f3f4f6;
 
   /* ── Text ── */
-  --color-ink: #080808;
-  --color-ink-strong: #1F2937;
+  --color-ink: #111111;
+  --color-ink-strong: #111111;
   --color-body: #374151;
-  --color-body-mid: #6B7280;
-  --color-mute: #9CA3AF;
-  --color-mute-soft: #D1D5DB;
+  --color-body-mid: #6b7280;
+  --color-mute: #6b7280;
+  --color-mute-soft: #898989;
+  --color-on-dark: #ffffff;
+  --color-on-dark-soft: #a1a1aa;
 
   /* ── Semantic ── */
-  --color-success: #059669;
-  --color-success-light: #ECFDF5;
-  --color-warning: #D97706;
-  --color-warning-light: #FFFBEB;
-  --color-error: #DC2626;
-  --color-error-light: #FEF2F2;
-  --color-info: #2563EB;
-  --color-info-light: #EFF6FF;
+  --color-success: #10b981;
+  --color-success-light: #ecfdf5;
+  --color-warning: #f59e0b;
+  --color-warning-light: #fffbeb;
+  --color-error: #ef4444;
+  --color-error-light: #fef2f2;
+  --color-info: #3b82f6;
+  --color-info-light: #eff6ff;
+
+  /* ── Badge pastels ── */
+  --color-badge-orange: #fb923c;
+  --color-badge-pink: #ec4899;
+  --color-badge-violet: #8b5cf6;
+  --color-badge-emerald: #34d399;
 
   /* ── Border Radius ── */
   --radius-none: 0px;
-  --radius-xs: 2px;
-  --radius-sm: 4px;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
   --radius-md: 8px;
   --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 9999px;
   --radius-full: 9999px;
 
-  /* ── Shadows (layered multi-stop) ── */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.08), 0 8px 10px -6px rgb(0 0 0 / 0.04);
-  --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
-  --shadow-card-hover: 0 10px 15px -3px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.03);
+  /* ── Shadows (soft, modern) ── */
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 0.08);
+  --shadow-lg: 0 10px 24px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 40px rgb(0 0 0 / 0.1);
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.05);
+  --shadow-card-hover: 0 4px 12px rgb(0 0 0 / 0.08);
 
   /* ── Typography ── */
   --font-sans: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-manrope), "Manrope", var(--font-inter), "Inter", system-ui, sans-serif;
 
   /* ── Z-index scale ── */
   --z-dropdown: 10;
@@ -96,7 +119,7 @@ body {
 
 /* ── Focus visible ring ── */
 .focus-ring {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-ink);
   outline-offset: 2px;
 }
 
@@ -105,14 +128,20 @@ body {
   width: 100%;
   max-width: 1200px;
   margin-inline: auto;
-  padding-inline: var(--spacing-lg, 16px);
+  padding-inline: 24px;
 }
 
 .container-wide {
   width: 100%;
   max-width: 1400px;
   margin-inline: auto;
-  padding-inline: var(--spacing-lg, 16px);
+  padding-inline: 24px;
+}
+
+/* ── Display heading style ── */
+.display-heading {
+  font-family: var(--font-display);
+  letter-spacing: -0.04em;
 }
 
 /* ── Text balance for headings ── */

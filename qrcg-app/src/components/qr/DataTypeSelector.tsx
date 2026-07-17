@@ -340,7 +340,7 @@ export default function DataTypeSelector({
               transition-colors duration-150 cursor-pointer border
               ${
                 dataType === type
-                  ? "bg-accent text-white border-accent"
+                  ? "bg-primary text-white border-primary"
                   : "bg-canvas text-body border-hairline hover:border-hairline-strong"
               }
             `}

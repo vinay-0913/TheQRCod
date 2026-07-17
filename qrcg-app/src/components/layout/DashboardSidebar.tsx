@@ -27,7 +27,7 @@ export default function DashboardSidebar() {
         href="/"
         className="flex items-center gap-2 text-ink font-semibold text-lg tracking-tight mb-8 px-3"
       >
-        <QrCode className="h-6 w-6 text-accent" aria-hidden="true" />
+        <QrCode className="h-6 w-6 text-ink" aria-hidden="true" />
         TheQRCod
       </Link>
 
@@ -44,12 +44,12 @@ export default function DashboardSidebar() {
               key={href}
               href={href}
               className={`
-                flex items-center gap-3 px-3 py-2.5 rounded-sm text-sm font-medium
+                flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium
                 transition-colors duration-150
                 ${
                   isActive
-                    ? "bg-accent-light text-accent"
-                    : "text-body hover:text-ink hover:bg-canvas-alt"
+                    ? "bg-surface-card text-ink shadow-sm"
+                    : "text-body-mid hover:text-ink hover:bg-surface-soft"
                 }
               `}
             >
@@ -65,7 +65,7 @@ export default function DashboardSidebar() {
         <button
           type="button"
           onClick={() => signOut({ callbackUrl: "/" })}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-sm text-sm font-medium text-body hover:text-error hover:bg-error-light transition-colors duration-150 w-full cursor-pointer"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium text-body-mid hover:text-error hover:bg-error-light transition-colors duration-150 w-full cursor-pointer"
         >
           <LogOut className="h-5 w-5" aria-hidden="true" />
           Sign out

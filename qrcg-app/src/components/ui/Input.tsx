@@ -24,11 +24,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           id={inputId}
           className={`
-            w-full px-4 py-3 rounded-sm
-            bg-canvas text-ink
+            w-full px-3.5 py-2.5 rounded-md h-10
+            bg-canvas text-ink text-base
             border transition-colors duration-150
             placeholder:text-mute
-            focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent
+            focus:outline-none focus:border-ink focus:ring-1 focus:ring-ink
             disabled:opacity-50 disabled:cursor-not-allowed
             ${error ? "border-error" : "border-hairline"}
             ${className}

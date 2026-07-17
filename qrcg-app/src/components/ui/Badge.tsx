@@ -5,7 +5,7 @@ interface BadgeProps {
 }
 
 const variantStyles: Record<string, string> = {
-  default: "bg-canvas-alt text-body-mid",
+  default: "bg-surface-card text-ink",
   success: "bg-success-light text-success",
   warning: "bg-warning-light text-warning",
   error: "bg-error-light text-error",
@@ -21,8 +21,8 @@ export default function Badge({
   return (
     <span
       className={`
-        inline-flex items-center px-2.5 py-0.5
-        rounded-sm text-xs font-semibold
+        inline-flex items-center px-3 py-0.5
+        rounded-full text-xs font-medium
         ${variantStyles[variant]}
         ${className}
       `}
