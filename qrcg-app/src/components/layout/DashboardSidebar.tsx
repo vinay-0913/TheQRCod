@@ -46,10 +46,9 @@ export default function DashboardSidebar() {
               className={`
                 flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium
                 transition-colors duration-150
-                ${
-                  isActive
-                    ? "bg-surface-card text-ink shadow-sm"
-                    : "text-body-mid hover:text-ink hover:bg-surface-soft"
+                ${isActive
+                  ? "bg-surface-card text-ink shadow-sm"
+                  : "text-body-mid hover:text-ink hover:bg-surface-soft"
                 }
               `}
             >

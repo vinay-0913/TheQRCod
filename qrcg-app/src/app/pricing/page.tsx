@@ -92,8 +92,8 @@ export default function PricingPage() {
               <div
                 key={plan.name}
                 className={`rounded-lg p-8 flex flex-col relative shadow-card ${plan.featured
-                    ? "bg-surface-dark text-on-dark"
-                    : "bg-canvas border border-hairline"
+                  ? "bg-surface-dark text-on-dark"
+                  : "bg-canvas border border-hairline"
                   }`}
               >
                 {plan.featured && (
@@ -149,8 +149,8 @@ export default function PricingPage() {
                     <Button
                       variant={plan.featured ? "secondary" : "primary"}
                       className={`w-full ${plan.featured
-                          ? "bg-white text-ink hover:bg-white/90 border-none"
-                          : ""
+                        ? "bg-white text-ink hover:bg-white/90 border-none"
+                        : ""
                         }`}
                     >
                       {plan.cta}

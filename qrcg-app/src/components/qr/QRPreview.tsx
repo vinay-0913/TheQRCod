@@ -56,9 +56,9 @@ export default function QRPreview({ config }: QRPreviewProps) {
         backgroundOptions: config.transparentBackground
           ? { color: "transparent" }
           : {
-              color: config.backgroundColor,
-              round: config.backgroundRoundness / 100,
-            },
+            color: config.backgroundColor,
+            round: config.backgroundRoundness / 100,
+          },
         imageOptions: {
           crossOrigin: "anonymous",
           margin: 8,

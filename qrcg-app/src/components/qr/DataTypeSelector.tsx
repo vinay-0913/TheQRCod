@@ -11,7 +11,20 @@ import {
   Wifi,
   Contact,
   Calendar,
+  Share2,
+  Grid3x3,
 } from "lucide-react";
+import {
+  FaFacebook,
+  FaInstagram,
+  FaXTwitter,
+  FaLinkedin,
+  FaYoutube,
+  FaTiktok,
+  FaSnapchat,
+  FaWhatsapp,
+  FaSpotify,
+} from "react-icons/fa6";
 
 export type DataType =
   | "url"
@@ -21,7 +34,9 @@ export type DataType =
   | "sms"
   | "wifi"
   | "vcard"
-  | "event";
+  | "event"
+  | "social"
+  | "app";
 
 interface DataTypeSelectorProps {
   dataType: DataType;
@@ -31,7 +46,7 @@ interface DataTypeSelectorProps {
 }
 
 const dataTypes: { type: DataType; label: string; icon: typeof Link2 }[] = [
-  { type: "url", label: "Link", icon: Link2 },
+  { type: "url", label: "URL", icon: Link2 },
   { type: "text", label: "Text", icon: Type },
   { type: "email", label: "Email", icon: Mail },
   { type: "phone", label: "Phone", icon: Phone },
@@ -39,6 +54,27 @@ const dataTypes: { type: DataType; label: string; icon: typeof Link2 }[] = [
   { type: "wifi", label: "WiFi", icon: Wifi },
   { type: "vcard", label: "vCard", icon: Contact },
   { type: "event", label: "Event", icon: Calendar },
+  { type: "social", label: "Social", icon: Share2 },
+  { type: "app", label: "App", icon: Grid3x3 },
+];
+
+// Social platform options
+const socialPlatforms = [
+  { id: "facebook", label: "Facebook", placeholder: "https://facebook.com/yourname", color: "#1877F2", Icon: FaFacebook },
+  { id: "youtube", label: "YouTube", placeholder: "https://youtube.com/@yourchannel", color: "#FF0000", Icon: FaYoutube },
+  { id: "instagram", label: "Instagram", placeholder: "https://instagram.com/yourname", color: "#E1306C", Icon: FaInstagram },
+  { id: "whatsapp", label: "WhatsApp", placeholder: "https://wa.me/1234567890", color: "#25D366", Icon: FaWhatsapp },
+  { id: "twitter", label: "Twitter / X", placeholder: "https://x.com/yourname", color: "#000000", Icon: FaXTwitter },
+  { id: "linkedin", label: "LinkedIn", placeholder: "https://linkedin.com/in/yourname", color: "#0A66C2", Icon: FaLinkedin },
+  { id: "snapchat", label: "Snapchat", placeholder: "https://snapchat.com/add/yourname", color: "#FFFC00", Icon: FaSnapchat },
+  { id: "tiktok", label: "TikTok", placeholder: "https://tiktok.com/@yourname", color: "#000000", Icon: FaTiktok },
+  { id: "spotify", label: "Spotify", placeholder: "https://open.spotify.com/artist/yourname", color: "#1DB954", Icon: FaSpotify },
+];
+
+// App store options
+const appStores = [
+  { id: "appstore", label: "App Store", placeholder: "https://apps.apple.com/app/your-app/id123456789" },
+  { id: "playstore", label: "Play Store", placeholder: "https://play.google.com/store/apps/details?id=com.yourapp" },
 ];
 
 export default function DataTypeSelector({
@@ -58,6 +94,10 @@ export default function DataTypeSelector({
   const [eventStart, setEventStart] = useState("");
   const [eventEnd, setEventEnd] = useState("");
   const [eventLocation, setEventLocation] = useState("");
+  const [selectedSocial, setSelectedSocial] = useState("facebook");
+  const [selectedApp, setSelectedApp] = useState("appstore");
+
+
 
   const buildWifiString = (ssid: string, pass: string, enc: string) =>
     `WIFI:T:${enc};S:${ssid};P:${pass};;`;
@@ -83,6 +123,10 @@ export default function DataTypeSelector({
   const handleTypeChange = (type: DataType) => {
     onChange(type, "");
   };
+
+  const visibleTypes = allowedTypes
+    ? dataTypes.filter((d) => allowedTypes.includes(d.type))
+    : dataTypes;
 
   const renderFields = () => {
     switch (dataType) {
@@ -322,30 +366,103 @@ export default function DataTypeSelector({
             />
           </div>
         );
+      case "social": {
+        const platform = socialPlatforms.find((p) => p.id === selectedSocial)!;
+        return (
+          <div className="space-y-4">
+            <p className="text-sm text-mute">Easily share any social link</p>
+            {/* Platform icon picker */}
+            <div className="flex flex-wrap gap-2">
+              {socialPlatforms.map((p) => {
+                const isActive = selectedSocial === p.id;
+                return (
+                  <button
+                    key={p.id}
+                    type="button"
+                    title={p.label}
+                    onClick={() => {
+                      setSelectedSocial(p.id);
+                      onChange(dataType, "");
+                    }}
+                    style={{
+                      color: p.color,
+                      borderColor: isActive ? p.color : "transparent",
+                    }}
+                    className="w-12 h-12 flex items-center justify-center rounded-sm border bg-canvas cursor-pointer transition-colors duration-150"
+                  >
+                    <p.Icon className="w-7 h-7" />
+                  </button>
+                );
+              })}
+            </div>
+            <Input
+              label={`Enter your ${platform.label} URL`}
+              type="url"
+              placeholder={platform.placeholder}
+              value={data}
+              onChange={(e) => onChange(dataType, e.target.value)}
+            />
+          </div>
+        );
+      }
+      case "app": {
+        const store = appStores.find((s) => s.id === selectedApp)!;
+        return (
+          <div className="space-y-4">
+            <p className="text-sm text-mute">Link directly to your app listing</p>
+            {/* Store picker */}
+            <div className="flex gap-2">
+              {appStores.map((s) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => {
+                    setSelectedApp(s.id);
+                    onChange(dataType, "");
+                  }}
+                  className={`px-3 py-1.5 rounded-sm text-sm font-medium border transition-colors cursor-pointer ${selectedApp === s.id
+                      ? "bg-primary text-white border-primary"
+                      : "bg-canvas text-body border-hairline hover:border-hairline-strong"
+                    }`}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+            <Input
+              label={`${store.label} URL`}
+              type="url"
+              placeholder={store.placeholder}
+              value={data}
+              onChange={(e) => onChange(dataType, e.target.value)}
+            />
+          </div>
+        );
+      }
     }
   };
 
   return (
     <div>
-      <h2 className="text-base font-semibold text-ink mb-4">Data Type</h2>
-      {/* Type selector tabs */}
-      <div className="flex flex-wrap gap-2 mb-6">
-        {(allowedTypes ? dataTypes.filter((d) => allowedTypes.includes(d.type)) : dataTypes).map(({ type, label, icon: Icon }) => (
+      {/* Scrollable tabs */}
+      <div
+        className="flex flex-wrap gap-1.5 mb-6"
+      >
+        {visibleTypes.map(({ type, label, icon: Icon }) => (
           <button
             key={type}
             type="button"
             onClick={() => handleTypeChange(type)}
             className={`
-              inline-flex items-center gap-2 px-3 py-2 rounded-sm text-sm font-medium
-              transition-colors duration-150 cursor-pointer border
-              ${
-                dataType === type
-                  ? "bg-primary text-white border-primary"
-                  : "bg-canvas text-body border-hairline hover:border-hairline-strong"
+              flex-shrink-0 inline-flex flex-col items-center gap-1 px-3 py-2.5 rounded-sm text-xs font-medium
+              transition-colors duration-150 cursor-pointer border min-w-[64px]
+              ${dataType === type
+                ? "bg-primary/10 text-primary border-primary/30"
+                : "bg-canvas text-body border-hairline hover:border-hairline-strong hover:text-ink"
               }
             `}
           >
-            <Icon className="h-4 w-4" aria-hidden="true" />
+            <Icon className="h-5 w-5" aria-hidden="true" />
             {label}
           </button>
         ))}

@@ -95,11 +95,10 @@ function StyleSelector({
             key={opt.value}
             type="button"
             onClick={() => onChange(opt.value)}
-            className={`px-3 py-1.5 rounded-sm text-sm font-medium border transition-colors cursor-pointer ${
-              value === opt.value
-                ? "bg-primary text-white border-primary"
-                : "bg-canvas text-body border-hairline hover:border-hairline-strong"
-            }`}
+            className={`px-3 py-1.5 rounded-sm text-sm font-medium border transition-colors cursor-pointer ${value === opt.value
+              ? "bg-primary text-white border-primary"
+              : "bg-canvas text-body border-hairline hover:border-hairline-strong"
+              }`}
           >
             {opt.label}
           </button>
@@ -285,10 +284,9 @@ export default function QRCustomizer({ config, onChange }: QRCustomizerProps) {
             className={`
               inline-flex items-center gap-1.5 px-3 py-2 rounded-sm text-sm font-medium
               whitespace-nowrap transition-colors duration-150 cursor-pointer border
-              ${
-                activeTab === id
-                  ? "bg-primary text-white border-primary"
-                  : "bg-canvas text-body border-hairline hover:border-hairline-strong"
+              ${activeTab === id
+                ? "bg-primary text-white border-primary"
+                : "bg-canvas text-body border-hairline hover:border-hairline-strong"
               }
             `}
           >

@@ -121,7 +121,7 @@ export default function CreateDynamicQRPage() {
                 required
               />
               <DataTypeSelector
-                allowedTypes={["url", "email", "phone", "sms"]}
+                allowedTypes={["url", "email", "phone", "sms", "social", "app"]}
                 dataType={design.dataType}
                 data={targetUrl}
                 onChange={(type, data) => {

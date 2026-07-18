@@ -24,7 +24,7 @@ export interface QRConfig {
 }
 
 const defaultConfig: QRConfig = {
-  data: "https://theqrcod.com",
+  data: "",
   dataType: "url",
   width: 300,
   margin: 10,
