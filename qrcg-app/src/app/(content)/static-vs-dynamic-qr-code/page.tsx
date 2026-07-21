@@ -129,7 +129,7 @@ export default function StaticVsDynamicPage() {
             Create Static QR Code
           </h3>
           <p className="text-sm text-body-mid mb-4">Free, instant, no signup.</p>
-          <Link href="/generator">
+          <Link href="/">
             <Button variant="primary" className="w-full">
               Create Now <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </Button>

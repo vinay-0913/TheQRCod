@@ -138,7 +138,7 @@ export default function HowToCreatePage() {
         <p className="text-white/80 mb-4">
           Free, instant, no signup required for static QR codes.
         </p>
-        <Link href="/generator">
+        <Link href="/">
           <Button className="bg-white text-ink hover:bg-white/90">
             Open QR Generator
             <ArrowRight className="h-4 w-4" aria-hidden="true" />

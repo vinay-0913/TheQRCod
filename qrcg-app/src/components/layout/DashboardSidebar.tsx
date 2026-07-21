@@ -11,7 +11,6 @@ import {
   CreditCard,
   LogOut,
   User,
-  Receipt,
   Zap,
 } from "lucide-react";
 
@@ -37,7 +36,7 @@ export default function DashboardSidebar() {
     ...(isPro
       ? [
           { href: "/dashboard/account", label: "Account", icon: User },
-          { href: "/dashboard/billing", label: "Billing", icon: Receipt },
+          { href: "/dashboard/billing", label: "Billing", icon: CreditCard },
         ]
       : [
           { href: "/pricing", label: "Upgrade to Pro", icon: Zap },

@@ -18,10 +18,14 @@ import Footer from "@/components/layout/Footer";
 import Button from "@/components/ui/Button";
 import Accordion from "@/components/ui/Accordion";
 import JsonLd from "@/components/seo/JsonLd";
+import HeroGenerator from "@/components/qr/HeroGenerator";
+import StaticQRGenerator from "@/components/qr/StaticQRGenerator";
+import HomepagePricingCards from "@/components/pricing/HomepagePricingCards";
 import {
   generateSoftwareAppJsonLd,
   generateFAQJsonLd,
 } from "@/lib/seo";
+import ScrollLink from "@/components/ui/ScrollLink";
 
 const faqs = [
   {
@@ -56,26 +60,6 @@ const faqs = [
   },
 ];
 
-const pricingFeatures = {
-  free: [
-    "Unlimited static QR codes",
-    "Full customization (colors, shapes, logo)",
-    "Download PNG & SVG",
-    "All data types (URL, text, WiFi, vCard...)",
-    "No account required",
-    "No watermarks",
-  ],
-  pro: [
-    "Everything in Free",
-    "Unlimited dynamic QR codes",
-    "Scan analytics dashboard",
-    "Edit destination URL anytime",
-    "Device & location tracking",
-    "Bulk QR code creation",
-    "Priority support",
-  ],
-};
-
 export default function HomePage() {
   return (
     <>
@@ -85,38 +69,27 @@ export default function HomePage() {
       <Navbar />
 
       <main>
-        {/* ─── HERO ─── */}
-        <section className="bg-canvas py-24 md:py-32 lg:py-40">
+        {/* ─── HERO — Full QR Generator ─── */}
+        <section id="generator" className="bg-canvas-alt py-12 md:py-16">
           <div className="container-main">
-            <div className="max-w-3xl mx-auto text-center">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-card text-ink text-sm font-medium mb-8">
+            {/* Heading */}
+            <div className="text-center mb-10">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-canvas text-ink text-sm font-medium mb-6 border border-hairline shadow-sm">
                 <Zap className="h-4 w-4" aria-hidden="true" />
                 Free forever · No signup needed
               </div>
-              <h1 className="display-heading text-4xl md:text-5xl lg:text-6xl font-semibold text-ink leading-[1.05]">
-                Generate QR Codes
-                <br />
-                That Actually Work
+              <h1 className="display-heading text-4xl md:text-5xl font-semibold text-ink leading-[1.05] mb-4">
+                Free QR Code Generator
               </h1>
-              <p className="mt-6 text-lg md:text-xl text-body leading-relaxed prose-width mx-auto">
-                Create free static QR codes instantly, or unlock dynamic QR
-                codes with scan analytics, editable destinations, and real-time
-                tracking.
+              <p className="text-base md:text-lg text-body max-w-xl mx-auto">
+                Create custom QR codes with colors, shapes, and logos. Download PNG or SVG instantly.
               </p>
-              <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link href="/generator">
-                  <Button size="lg" className="min-w-[200px]">
-                    Create Free QR Code
-                    <ArrowRight className="h-5 w-5" aria-hidden="true" />
-                  </Button>
-                </Link>
-                <Link href="/pricing">
-                  <Button variant="secondary" size="lg" className="min-w-[200px]">
-                    View Dynamic Plans
-                  </Button>
-                </Link>
-              </div>
             </div>
+
+            {/* Full generator */}
+            <StaticQRGenerator />
+
+
           </div>
         </section>
 
@@ -171,12 +144,12 @@ export default function HomePage() {
                   ))}
                 </ul>
                 <div className="mt-auto">
-                  <Link href="/generator">
+                  <ScrollLink href="/">
                     <Button variant="primary" className="w-full">
                       Create Static QR Code
                       <ArrowRight className="h-4 w-4" aria-hidden="true" />
                     </Button>
-                  </Link>
+                  </ScrollLink>
                 </div>
               </div>
 
@@ -346,75 +319,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-              {/* Free tier */}
-              <div className="bg-canvas rounded-lg border border-hairline p-8 shadow-card">
-                <h3 className="text-lg font-semibold text-ink">Free</h3>
-                <div className="mt-4 flex items-baseline gap-1">
-                  <span className="display-heading text-4xl font-semibold text-ink">$0</span>
-                  <span className="text-body-mid">/forever</span>
-                </div>
-                <p className="mt-4 text-sm text-body">
-                  Everything you need for static QR codes.
-                </p>
-                <ul className="mt-8 space-y-3">
-                  {pricingFeatures.free.map((f) => (
-                    <li
-                      key={f}
-                      className="flex items-center gap-3 text-sm text-body"
-                    >
-                      <Check className="h-4 w-4 text-success shrink-0" aria-hidden="true" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-8">
-                  <Link href="/generator">
-                    <Button variant="secondary" className="w-full">
-                      Get Started Free
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Pro tier — featured dark */}
-              <div className="bg-surface-dark text-on-dark rounded-lg p-8 relative">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-surface-dark-elevated text-on-dark text-xs font-semibold border border-white/10">
-                  Most Popular
-                </div>
-                <h3 className="text-lg font-semibold text-white">Pro</h3>
-                <div className="mt-4 flex items-baseline gap-1">
-                  <span className="display-heading text-4xl font-semibold text-white">
-                    $6.99
-                  </span>
-                  <span className="text-on-dark-soft">/month</span>
-                </div>
-                <p className="mt-4 text-sm text-on-dark-soft">
-                  Dynamic QR codes with full analytics.
-                </p>
-                <ul className="mt-8 space-y-3">
-                  {pricingFeatures.pro.map((f) => (
-                    <li
-                      key={f}
-                      className="flex items-center gap-3 text-sm text-white/80"
-                    >
-                      <Check className="h-4 w-4 text-badge-emerald shrink-0" aria-hidden="true" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-8">
-                  <Link href="/signup">
-                    <Button
-                      variant="secondary"
-                      className="w-full bg-white text-ink hover:bg-white/90 border-none"
-                    >
-                      Start Free Trial
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <HomepagePricingCards />
           </div>
         </section>
 
@@ -441,12 +346,12 @@ export default function HomePage() {
               beautiful QR code in seconds.
             </p>
             <div className="mt-8">
-              <Link href="/generator">
+              <ScrollLink href="/">
                 <Button size="lg">
                   Create Free QR Code
                   <ArrowRight className="h-5 w-5" aria-hidden="true" />
                 </Button>
-              </Link>
+              </ScrollLink>
             </div>
           </div>
         </section>

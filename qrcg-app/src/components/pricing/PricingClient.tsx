@@ -235,7 +235,7 @@ export default function PricingClient({
           </ul>
           <div className="mt-8">
             <a
-              href="/generator"
+              href="/"
               className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-sm border border-hairline bg-canvas text-ink text-sm font-medium hover:bg-surface-card transition-colors"
             >
               Get Started Free <ArrowRight className="h-4 w-4" />

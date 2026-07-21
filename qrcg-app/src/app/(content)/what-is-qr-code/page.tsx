@@ -131,7 +131,7 @@ export default function WhatIsQRCodePage() {
           scan analytics.
         </p>
         <div className="flex flex-wrap gap-3">
-          <Link href="/generator">
+          <Link href="/">
             <Button>
               Create Free QR Code
               <ArrowRight className="h-4 w-4" aria-hidden="true" />

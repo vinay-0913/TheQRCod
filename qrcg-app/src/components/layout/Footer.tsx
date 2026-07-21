@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { QrCode } from "lucide-react";
+import ScrollLink from "@/components/ui/ScrollLink";
 
 const footerLinks = {
   Product: [
-    { href: "/generator", label: "QR Generator" },
+    { href: "/", label: "QR Generator" },
     { href: "/pricing", label: "Pricing" },
     { href: "/dashboard", label: "Dashboard" },
   ],
@@ -47,12 +48,12 @@ export default function Footer() {
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.href}>
-                    <Link
+                    <ScrollLink
                       href={link.href}
                       className="text-sm text-on-dark-soft hover:text-on-dark transition-colors duration-150"
                     >
                       {link.label}
-                    </Link>
+                    </ScrollLink>
                   </li>
                 ))}
               </ul>

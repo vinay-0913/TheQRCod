@@ -5,9 +5,10 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { Menu, X, QrCode } from "lucide-react";
 import Button from "@/components/ui/Button";
+import ScrollLink from "@/components/ui/ScrollLink";
 
 const navLinks = [
-  { href: "/generator", label: "QR Generator" },
+  { href: "/", label: "QR Generator" },
   { href: "/pricing", label: "Pricing" },
   { href: "/what-is-qr-code", label: "Learn" },
 ];
@@ -34,13 +35,13 @@ export default function Navbar() {
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <Link
+            <ScrollLink
               key={link.href}
               href={link.href}
               className="text-sm font-medium text-body-mid hover:text-ink transition-colors duration-150"
             >
               {link.label}
-            </Link>
+            </ScrollLink>
           ))}
         </div>
 
@@ -89,14 +90,14 @@ export default function Navbar() {
         <div className="md:hidden border-t border-hairline bg-canvas">
           <div className="container-main py-4 flex flex-col gap-4">
             {navLinks.map((link) => (
-              <Link
+              <ScrollLink
                 key={link.href}
                 href={link.href}
                 className="text-base font-medium text-body hover:text-ink py-2"
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}
-              </Link>
+              </ScrollLink>
             ))}
             <div className="flex flex-col gap-2 pt-4 border-t border-hairline">
               {session ? (
