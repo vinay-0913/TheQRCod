@@ -155,3 +155,8 @@ h3 {
 .prose-width {
   max-width: 70ch;
 }
+
+/* ── Prose max-width for readability ── */
+.prose-width {
+  max-width: 70ch;
+}

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { Menu, X, QrCode } from "lucide-react";
 import Button from "@/components/ui/Button";
 
@@ -13,6 +14,7 @@ const navLinks = [
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { data: session } = useSession();
 
   return (
     <header className="sticky top-0 z-[var(--z-sticky)] bg-canvas/95 backdrop-blur-sm border-b border-hairline">
@@ -44,16 +46,26 @@ export default function Navbar() {
 
         {/* Desktop auth */}
         <div className="hidden md:flex items-center gap-3">
-          <Link href="/login">
-            <Button variant="ghost" size="sm">
-              Log in
-            </Button>
-          </Link>
-          <Link href="/signup">
-            <Button variant="primary" size="sm">
-              Get Started
-            </Button>
-          </Link>
+          {session ? (
+            <Link href="/dashboard">
+              <Button variant="primary" size="sm">
+                Dashboard
+              </Button>
+            </Link>
+          ) : (
+            <>
+              <Link href="/login">
+                <Button variant="ghost" size="sm">
+                  Log in
+                </Button>
+              </Link>
+              <Link href="/signup">
+                <Button variant="primary" size="sm">
+                  Get Started
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile hamburger */}
@@ -87,16 +99,26 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="flex flex-col gap-2 pt-4 border-t border-hairline">
-              <Link href="/login" onClick={() => setMobileOpen(false)}>
-                <Button variant="secondary" size="md" className="w-full">
-                  Log in
-                </Button>
-              </Link>
-              <Link href="/signup" onClick={() => setMobileOpen(false)}>
-                <Button variant="primary" size="md" className="w-full">
-                  Get Started
-                </Button>
-              </Link>
+              {session ? (
+                <Link href="/dashboard" onClick={() => setMobileOpen(false)}>
+                  <Button variant="primary" size="md" className="w-full">
+                    Dashboard
+                  </Button>
+                </Link>
+              ) : (
+                <>
+                  <Link href="/login" onClick={() => setMobileOpen(false)}>
+                    <Button variant="secondary" size="md" className="w-full">
+                      Log in
+                    </Button>
+                  </Link>
+                  <Link href="/signup" onClick={() => setMobileOpen(false)}>
+                    <Button variant="primary" size="md" className="w-full">
+                      Get Started
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

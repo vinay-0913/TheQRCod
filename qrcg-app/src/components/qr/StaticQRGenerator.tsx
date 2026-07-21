@@ -54,9 +54,9 @@ export default function StaticQRGenerator() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-6 items-start">
       {/* Left: Configuration panel */}
-      <div className="space-y-6">
+      <div className="space-y-6 min-w-0">
         {/* Data type selector + input */}
-        <div className="bg-canvas rounded-md border border-hairline p-6">
+        <div className="bg-canvas rounded-md border border-hairline p-6 min-w-0 overflow-hidden">
           <DataTypeSelector
             dataType={config.dataType}
             data={config.data}

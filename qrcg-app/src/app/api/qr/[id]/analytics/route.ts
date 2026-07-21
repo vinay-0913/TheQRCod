@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth";
 import { connectDB } from "@/lib/db";
 import DynamicQR from "@/models/DynamicQR";
 import Scan from "@/models/Scan";
+import User from "@/models/User";
 
 // GET /api/qr/[id]/analytics — get scan analytics for a QR code
 export async function GET(
@@ -25,8 +26,15 @@ export async function GET(
     return NextResponse.json({ error: "QR code not found" }, { status: 404 });
   }
 
+  const dbUser = await User.findById(userId).select("plan").lean();
+  const isPro = dbUser?.plan === "pro";
+
   const { searchParams } = new URL(request.url);
-  const period = searchParams.get("period") || "7d";
+  let period = searchParams.get("period") || "7d";
+  
+  if (!isPro && ["30d", "all"].includes(period)) {
+    period = "7d";
+  }
 
   let dateFilter: Date;
   const now = new Date();
@@ -85,7 +93,11 @@ export async function GET(
       }),
 
       // Recent scans (last 20)
-      Scan.find({ qrId: qr._id })
+      Scan.find(
+        isPro 
+          ? { qrId: qr._id } 
+          : { qrId: qr._id, timestamp: { $gte: dateFilter } }
+      )
         .sort({ timestamp: -1 })
         .limit(20)
         .lean(),

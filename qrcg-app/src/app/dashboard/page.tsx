@@ -12,6 +12,8 @@ import {
   Copy,
   Check,
   QrCode,
+  Zap,
+  ArrowRight,
 } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Badge from "@/components/ui/Badge";
@@ -32,10 +34,24 @@ export default function DashboardPage() {
   const [qrCodes, setQrCodes] = useState<QRCode[]>([]);
   const [loading, setLoading] = useState(true);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [userPlan, setUserPlan] = useState<string>("free");
+  const [qrLimit, setQrLimit] = useState<number>(1);
 
   useEffect(() => {
     fetchQRCodes();
+    fetchUserInfo();
   }, []);
+
+  const fetchUserInfo = async () => {
+    try {
+      const res = await fetch("/api/user/me");
+      if (res.ok) {
+        const data = await res.json();
+        setUserPlan(data.plan || "free");
+        setQrLimit(data.plan === "pro" ? (data.qrLimit || 5) : 1);
+      }
+    } catch { /* ignore */ }
+  };
 
   const fetchQRCodes = async () => {
     try {
@@ -101,22 +117,59 @@ export default function DashboardPage() {
     );
   }
 
+  const atLimit = qrCodes.length >= qrLimit;
+  const isPro = userPlan === "pro";
+
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-semibold text-ink">My QR Codes</h1>
           <p className="text-sm text-body-mid mt-1">
-            {qrCodes.length} dynamic QR code{qrCodes.length !== 1 ? "s" : ""}
+            {qrCodes.length} of {qrLimit} dynamic QR code{qrLimit !== 1 ? "s" : ""} used
           </p>
         </div>
-        <Link href="/dashboard/create">
-          <Button>
-            <PlusCircle className="h-4 w-4" aria-hidden="true" />
-            Create New
-          </Button>
-        </Link>
+        {atLimit ? (
+          <Link href="/pricing">
+            <Button>
+              <Zap className="h-4 w-4" aria-hidden="true" />
+              {isPro ? "Get More QR Codes" : "Upgrade to Pro"}
+            </Button>
+          </Link>
+        ) : (
+          <Link href="/dashboard/create">
+            <Button>
+              <PlusCircle className="h-4 w-4" aria-hidden="true" />
+              Create New
+            </Button>
+          </Link>
+        )}
       </div>
+
+      {/* Upgrade banner when at limit */}
+      {atLimit && (
+        <Link
+          href="/pricing"
+          className="mb-6 p-4 rounded-md bg-amber-50 border border-amber-200 flex items-center gap-3 hover:bg-amber-100 transition-colors group block"
+        >
+          <div className="h-10 w-10 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
+            <Zap className="h-5 w-5 text-amber-600" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-semibold text-amber-900">
+              {isPro
+                ? "Need more dynamic QR codes?"
+                : "Upgrade to Pro for more dynamic QR codes"}
+            </p>
+            <p className="text-xs text-amber-700 mt-0.5">
+              {isPro
+                ? `You've used all ${qrLimit} QR codes on your plan. Upgrade to add more.`
+                : "You've used your free QR code. Upgrade to Pro starting at ₹199/month for 5 QR codes."}
+            </p>
+          </div>
+          <ArrowRight className="h-5 w-5 text-amber-600 shrink-0 group-hover:translate-x-0.5 transition-transform" />
+        </Link>
+      )}
 
       {qrCodes.length === 0 ? (
         /* Empty state */

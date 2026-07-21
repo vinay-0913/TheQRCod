@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
+import AuthSessionProvider from "@/components/providers/SessionProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -91,7 +92,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-canvas text-body antialiased">
-        {children}
+        <AuthSessionProvider>{children}</AuthSessionProvider>
       </body>
     </html>
   );

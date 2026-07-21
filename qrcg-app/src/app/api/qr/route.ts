@@ -43,6 +43,25 @@ export async function POST(request: Request) {
 
     const userId = (session.user as { id: string }).id;
 
+    // Enforce qrLimit
+    const User = (await import("@/models/User")).default;
+    const dbUser = await User.findById(userId).select("plan qrLimit");
+    if (!dbUser) {
+      return NextResponse.json(
+        { error: "User not found." },
+        { status: 404 }
+      );
+    }
+    const currentCount = await DynamicQR.countDocuments({ userId });
+    const limit = dbUser.plan === "pro" ? (dbUser.qrLimit || 5) : 1;
+    
+    if (currentCount >= limit) {
+      return NextResponse.json(
+        { error: `Limit reached. You can create up to ${limit} dynamic QR code${limit !== 1 ? 's' : ''} on your current plan. Upgrade to add more.`, limitReached: true },
+        { status: 403 }
+      );
+    }
+
     // Generate a unique short code
     let shortCode = generateShortCode();
     let attempts = 0;
