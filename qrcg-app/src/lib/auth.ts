@@ -48,7 +48,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const existing = await User.findOne({ email: user.email!.toLowerCase() });
           if (!existing) {
             await User.create({
-              name: user.name,
+              name: user.name || "",
               email: user.email!.toLowerCase(),
               hashedPassword: "",
               plan: "free",

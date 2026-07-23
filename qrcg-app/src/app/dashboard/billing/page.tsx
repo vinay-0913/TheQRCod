@@ -56,12 +56,12 @@ export default function BillingPage() {
       <p className="text-sm text-body-mid mb-8">Manage your subscription and payment details.</p>
 
       {/* Current plan card */}
-      <div className="bg-canvas rounded-md border border-hairline p-6 mb-4">
+      <div className="bg-canvas rounded-md border border-hairline p-4 sm:p-6 mb-4">
         <div className="flex items-start justify-between">
           <div>
             <p className="text-xs text-body-mid uppercase tracking-wide font-medium mb-1">Current Plan</p>
             <div className="flex items-center gap-2">
-              <h2 className="text-2xl font-semibold text-ink">
+              <h2 className="text-xl sm:text-2xl font-semibold text-ink">
                 {isPro ? "Pro" : "Free"}
               </h2>
               {isPro && (
@@ -72,7 +72,7 @@ export default function BillingPage() {
             </div>
           </div>
           <div
-            className={`h-12 w-12 rounded-full flex items-center justify-center ${
+            className={`h-10 w-10 sm:h-12 sm:w-12 rounded-full flex items-center justify-center ${
               isPro ? "bg-amber-50" : "bg-surface-card"
             }`}
           >
@@ -84,7 +84,7 @@ export default function BillingPage() {
         </div>
 
         {isPro && expiresDate && (
-          <div className="mt-4 pt-4 border-t border-hairline grid grid-cols-3 gap-4">
+          <div className="mt-4 pt-4 border-t border-hairline grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <p className="text-xs text-body-mid mb-1">Renews / Expires</p>
               <p className="text-sm font-medium text-ink flex items-center gap-1.5">

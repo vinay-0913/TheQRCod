@@ -14,6 +14,8 @@ const footerLinks = {
     { href: "/how-to-create-qr-code", label: "How to Create" },
   ],
   Company: [
+    { href: "/about", label: "About Us" },
+    { href: "/contact", label: "Contact Us" },
     { href: "/privacy", label: "Privacy Policy" },
     { href: "/terms", label: "Terms of Service" },
   ],

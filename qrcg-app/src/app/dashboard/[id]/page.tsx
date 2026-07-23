@@ -132,19 +132,20 @@ export default function QRDetailPage({
       </Link>
 
       {/* Header */}
-      <div className="bg-canvas rounded-md border border-hairline p-6 mb-6">
+      <div className="bg-canvas rounded-md border border-hairline p-4 sm:p-6 mb-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-3 mb-1">
-              <h1 className="text-xl font-semibold text-ink">{qr.name}</h1>
+          <div className="min-w-0">
+            <div className="flex items-center gap-3 mb-1 flex-wrap">
+              <h1 className="text-lg sm:text-xl font-semibold text-ink truncate">{qr.name}</h1>
               <Badge variant={qr.status === "active" ? "success" : "warning"}>
                 {qr.status}
               </Badge>
             </div>
-            <p className="text-sm text-body-mid">{qr.targetUrl}</p>
+            <p className="text-xs sm:text-sm text-body-mid truncate">{qr.targetUrl}</p>
           </div>
-          <div className="flex items-center gap-2">
-            <Button variant="secondary" size="sm" onClick={copyLink}>
+
+          <div className="grid grid-cols-2 sm:flex items-center gap-2 w-full sm:w-auto">
+            <Button variant="secondary" size="sm" onClick={copyLink} className="w-full sm:w-auto justify-center">
               {copied ? (
                 <Check className="h-4 w-4 text-success" />
               ) : (
@@ -152,7 +153,7 @@ export default function QRDetailPage({
               )}
               {copied ? "Copied!" : "Copy Link"}
             </Button>
-            <Button variant="secondary" size="sm" onClick={toggleStatus}>
+            <Button variant="secondary" size="sm" onClick={toggleStatus} className="w-full sm:w-auto justify-center">
               {qr.status === "active" ? (
                 <Pause className="h-4 w-4" />
               ) : (
@@ -160,13 +161,13 @@ export default function QRDetailPage({
               )}
               {qr.status === "active" ? "Pause" : "Activate"}
             </Button>
-            <Link href={`/dashboard/${qr._id}/edit`}>
-              <Button variant="secondary" size="sm">
+            <Link href={`/dashboard/${qr._id}/edit`} className="w-full sm:w-auto">
+              <Button variant="secondary" size="sm" className="w-full justify-center">
                 <Edit className="h-4 w-4" />
                 Edit
               </Button>
             </Link>
-            <Button variant="secondary" size="sm" onClick={() => setShowQRModal(true)}>
+            <Button variant="secondary" size="sm" onClick={() => setShowQRModal(true)} className="w-full sm:w-auto justify-center">
               <QrCode className="h-4 w-4" />
               View QR
             </Button>
@@ -174,16 +175,16 @@ export default function QRDetailPage({
         </div>
 
         {/* Short URL display */}
-        <div className="mt-4 p-3 bg-canvas-alt rounded-sm flex items-center gap-3">
+        <div className="mt-4 p-2.5 sm:p-3 bg-canvas-alt rounded-sm flex items-center gap-2.5 min-w-0">
           <Globe className="h-4 w-4 text-mute shrink-0" aria-hidden="true" />
-          <code className="text-sm text-accent font-mono flex-1 truncate">
+          <code className="text-xs sm:text-sm text-accent font-mono flex-1 truncate">
             {shortUrl}
           </code>
           <a
             href={shortUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-body-mid hover:text-ink"
+            className="text-body-mid hover:text-ink shrink-0 p-1"
           >
             <ExternalLink className="h-4 w-4" />
           </a>
@@ -191,7 +192,7 @@ export default function QRDetailPage({
       </div>
 
       {/* Period selector */}
-      <div className="flex gap-2 mb-6">
+      <div className="flex gap-2 mb-6 overflow-x-auto pb-1">
         {[
           { value: "24h", label: "24 Hours" },
           { value: "7d", label: "7 Days" },
@@ -202,7 +203,7 @@ export default function QRDetailPage({
             key={p.value}
             type="button"
             onClick={() => setPeriod(p.value)}
-            className={`px-3 py-1.5 rounded-sm text-sm font-medium border transition-colors cursor-pointer ${
+            className={`px-3 py-1.5 rounded-sm text-xs sm:text-sm font-medium border transition-colors shrink-0 cursor-pointer ${
               period === p.value
                 ? "bg-primary text-white border-primary"
                 : "bg-canvas text-body border-hairline hover:border-hairline-strong"
@@ -214,66 +215,69 @@ export default function QRDetailPage({
       </div>
 
       {/* Stats grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        <div className="bg-canvas rounded-md border border-hairline p-5">
-          <p className="text-sm text-body-mid mb-1">Total Scans</p>
-          <p className="text-3xl font-semibold text-ink">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6">
+        <div className="bg-canvas rounded-md border border-hairline p-4 sm:p-5">
+          <p className="text-xs sm:text-sm text-body-mid mb-1">Total Scans</p>
+          <p className="text-2xl sm:text-3xl font-semibold text-ink">
             {analytics?.totalScans || 0}
           </p>
         </div>
-        <div className="bg-canvas rounded-md border border-hairline p-5">
-          <p className="text-sm text-body-mid mb-1">All-Time Scans</p>
-          <p className="text-3xl font-semibold text-ink">{qr.totalScans}</p>
+        <div className="bg-canvas rounded-md border border-hairline p-4 sm:p-5">
+          <p className="text-xs sm:text-sm text-body-mid mb-1">All-Time Scans</p>
+          <p className="text-2xl sm:text-3xl font-semibold text-ink">{qr.totalScans}</p>
         </div>
-        <div className="bg-canvas rounded-md border border-hairline p-5">
-          <p className="text-sm text-body-mid mb-1">Status</p>
-          <p className="text-3xl font-semibold text-ink capitalize">
+        <div className="bg-canvas rounded-md border border-hairline p-4 sm:p-5">
+          <p className="text-xs sm:text-sm text-body-mid mb-1">Status</p>
+          <p className="text-2xl sm:text-3xl font-semibold text-ink capitalize">
             {qr.status}
           </p>
         </div>
       </div>
 
       {/* Scan timeline chart */}
-      <div className="bg-canvas rounded-md border border-hairline p-6 mb-6">
+      <div className="bg-canvas rounded-md border border-hairline p-4 sm:p-6 mb-6 overflow-hidden min-w-0">
         <h2 className="text-base font-semibold text-ink mb-4">
           Scans Over Time
         </h2>
         {analytics && analytics.scansOverTime.length > 0 ? (
-          <ResponsiveContainer width="100%" height={280}>
-            <LineChart data={analytics.scansOverTime}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-              <XAxis
-                dataKey="date"
-                tick={{ fontSize: 12, fill: "#6B7280" }}
-                tickFormatter={(v) =>
-                  new Date(v).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                  })
-                }
-              />
-              <YAxis
-                tick={{ fontSize: 12, fill: "#6B7280" }}
-                allowDecimals={false}
-              />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "#fff",
-                  border: "1px solid #E5E7EB",
-                  borderRadius: "4px",
-                  fontSize: "14px",
-                }}
-              />
-              <Line
-                type="monotone"
-                dataKey="count"
-                stroke="#4F46E5"
-                strokeWidth={2}
-                dot={{ fill: "#4F46E5", r: 3 }}
-                activeDot={{ r: 5 }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+          <div className="h-[220px] sm:h-[280px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={analytics.scansOverTime}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                <XAxis
+                  dataKey="date"
+                  tick={{ fontSize: 11, fill: "#6B7280" }}
+                  tickFormatter={(v) =>
+                    new Date(v).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                    })
+                  }
+                />
+                <YAxis
+                  tick={{ fontSize: 11, fill: "#6B7280" }}
+                  allowDecimals={false}
+                  width={30}
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#fff",
+                    border: "1px solid #E5E7EB",
+                    borderRadius: "4px",
+                    fontSize: "13px",
+                  }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="count"
+                  stroke="#4F46E5"
+                  strokeWidth={2}
+                  dot={{ fill: "#4F46E5", r: 3 }}
+                  activeDot={{ r: 5 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         ) : (
           <p className="text-sm text-body-mid text-center py-12">
             No scan data for this period yet.

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Manrope } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import AuthSessionProvider from "@/components/providers/SessionProvider";
 
@@ -25,36 +26,57 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://theqrcod.com"),
   title: {
-    default: "The QR Code Generator — Free Static & Dynamic QR Codes",
+    default: "QR Code Generator — Best Free QR Code Generator Online",
     template: "%s | The QR Code Generator",
   },
   description:
-    "Create free static QR codes instantly or generate trackable dynamic QR codes with scan analytics. Customize colors, shapes, and logos. No signup required for static codes.",
+    "The best free QR code generator online. Create custom static and dynamic QR codes with logos, colors, and scan tracking. Fast, free, and no signup needed.",
   keywords: [
+    "QR Code Generator",
     "qr code generator",
-    "free qr code",
-    "dynamic qr code",
-    "qr code maker",
-    "custom qr code",
-    "qr code with logo",
-    "trackable qr code",
+    "free qr code generator",
+    "qr code generator free",
+    "qr code generator free online",
+    "best free qr code generator",
+    "qr code generator canva",
+    "google qr code generator",
+    "the qr code generator",
+    "bulk qr code generator",
+    "qr code generator online",
+    "UPI QR code generator",
+    "Location QR code Generator",
+    "QR Code generator text",
+    "custom qr code with logo",
+    "dynamic qr code generator",
   ],
   authors: [{ name: "The QR Code Generator" }],
   creator: "The QR Code Generator",
+  alternates: {
+    canonical: "https://theqrcod.com",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://theqrcod.com",
     siteName: "The QR Code Generator",
-    title: "The QR Code Generator — Free Static & Dynamic QR Codes",
+    title: "QR Code Generator — Best Free QR Code Generator Online",
     description:
-      "Create free static QR codes instantly or generate trackable dynamic QR codes with scan analytics.",
+      "Create free static and dynamic QR codes online with custom colors, logos, and scan analytics. Try the best free QR code generator online today.",
+    images: [
+      {
+        url: "https://theqrcod.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "The Best Free QR Code Generator Online",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "The QR Code Generator — Free Static & Dynamic QR Codes",
+    title: "QR Code Generator — Best Free QR Code Generator Online",
     description:
-      "Create free static QR codes instantly or generate trackable dynamic QR codes with scan analytics.",
+      "Create free static and dynamic QR codes online with custom colors, logos, and scan analytics. Try the best free QR code generator online today.",
+    images: ["https://theqrcod.com/og-image.png"],
   },
   robots: {
     index: true,
@@ -92,6 +114,20 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-canvas text-body antialiased">
+        {/* Google Tag (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-XVT5QWQESF"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-XVT5QWQESF');
+          `}
+        </Script>
         <AuthSessionProvider>{children}</AuthSessionProvider>
       </body>
     </html>

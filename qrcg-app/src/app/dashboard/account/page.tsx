@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
@@ -46,13 +46,13 @@ export default function AccountPage() {
       <div className="bg-canvas rounded-md border border-hairline divide-y divide-hairline">
 
         {/* Avatar + name header */}
-        <div className="p-6 flex items-center gap-4">
-          <div className="h-14 w-14 rounded-full bg-surface-card flex items-center justify-center text-2xl font-semibold text-ink shrink-0">
+        <div className="p-4 sm:p-6 flex items-center gap-4">
+          <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-surface-card flex items-center justify-center text-xl sm:text-2xl font-semibold text-ink shrink-0">
             {user?.name?.charAt(0).toUpperCase() ?? "?"}
           </div>
-          <div>
-            <p className="text-base font-semibold text-ink">{user?.name}</p>
-            <p className="text-sm text-body-mid">{user?.email}</p>
+          <div className="min-w-0 flex-1">
+            <p className="text-base font-semibold text-ink truncate">{user?.name}</p>
+            <p className="text-xs sm:text-sm text-body-mid truncate">{user?.email}</p>
           </div>
         </div>
 
@@ -68,14 +68,14 @@ export default function AccountPage() {
           },
           { icon: Calendar, label: "Member Since", value: joinDate },
         ].map(({ icon: Icon, label, value, badge }) => (
-          <div key={label} className="px-6 py-4 flex items-center gap-4">
+          <div key={label} className="px-4 sm:px-6 py-4 flex items-center gap-4">
             <Icon className="h-4 w-4 text-mute shrink-0" aria-hidden="true" />
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <p className="text-xs text-body-mid">{label}</p>
-              <p className="text-sm font-medium text-ink flex items-center gap-2 mt-0.5">
-                {value}
+              <p className="text-sm font-medium text-ink flex items-center gap-2 mt-0.5 truncate">
+                <span className="truncate">{value}</span>
                 {badge && (
-                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200">
+                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 shrink-0">
                     Pro
                   </span>
                 )}

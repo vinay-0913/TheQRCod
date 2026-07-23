@@ -122,23 +122,23 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-ink">My QR Codes</h1>
-          <p className="text-sm text-body-mid mt-1">
+          <h1 className="text-xl sm:text-2xl font-semibold text-ink">My QR Codes</h1>
+          <p className="text-xs sm:text-sm text-body-mid mt-1">
             {qrCodes.length} of {qrLimit} dynamic QR code{qrLimit !== 1 ? "s" : ""} used
           </p>
         </div>
         {atLimit ? (
-          <Link href="/pricing">
-            <Button>
+          <Link href="/pricing" className="w-full sm:w-auto">
+            <Button className="w-full sm:w-auto">
               <Zap className="h-4 w-4" aria-hidden="true" />
               {isPro ? "Get More QR Codes" : "Upgrade to Pro"}
             </Button>
           </Link>
         ) : (
-          <Link href="/dashboard/create">
-            <Button>
+          <Link href="/dashboard/create" className="w-full sm:w-auto">
+            <Button className="w-full sm:w-auto">
               <PlusCircle className="h-4 w-4" aria-hidden="true" />
               Create New
             </Button>
@@ -150,13 +150,22 @@ export default function DashboardPage() {
       {atLimit && (
         <Link
           href="/pricing"
-          className="mb-6 p-4 rounded-md bg-amber-50 border border-amber-200 flex items-center gap-3 hover:bg-amber-100 transition-colors group block"
+          className="mb-6 p-4 rounded-md bg-amber-50 border border-amber-200 flex flex-col sm:flex-row sm:items-center gap-3 hover:bg-amber-100 transition-colors group block"
         >
-          <div className="h-10 w-10 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
-            <Zap className="h-5 w-5 text-amber-600" />
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
+              <Zap className="h-5 w-5 text-amber-600" />
+            </div>
+            <div className="flex-1 min-w-0 sm:hidden">
+              <p className="text-sm font-semibold text-amber-900">
+                {isPro
+                  ? "Need more dynamic QR codes?"
+                  : "Upgrade to Pro for more dynamic QR codes"}
+              </p>
+            </div>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-amber-900">
+            <p className="text-sm font-semibold text-amber-900 hidden sm:block">
               {isPro
                 ? "Need more dynamic QR codes?"
                 : "Upgrade to Pro for more dynamic QR codes"}
@@ -167,13 +176,13 @@ export default function DashboardPage() {
                 : "You've used your free QR code. Upgrade to Pro starting at ₹199/month for 5 QR codes."}
             </p>
           </div>
-          <ArrowRight className="h-5 w-5 text-amber-600 shrink-0 group-hover:translate-x-0.5 transition-transform" />
+          <ArrowRight className="h-5 w-5 text-amber-600 shrink-0 hidden sm:block group-hover:translate-x-0.5 transition-transform" />
         </Link>
       )}
 
       {qrCodes.length === 0 ? (
         /* Empty state */
-        <div className="bg-canvas rounded-md border border-hairline p-12 text-center">
+        <div className="bg-canvas rounded-md border border-hairline p-8 sm:p-12 text-center">
           <QrCode className="h-12 w-12 text-mute mx-auto mb-4" aria-hidden="true" />
           <h2 className="text-lg font-semibold text-ink mb-2">
             No dynamic QR codes yet
@@ -182,8 +191,8 @@ export default function DashboardPage() {
             Create your first dynamic QR code to start tracking scans,
             editing destinations, and accessing analytics.
           </p>
-          <Link href="/dashboard/create">
-            <Button>
+          <Link href="/dashboard/create" className="inline-block w-full sm:w-auto">
+            <Button className="w-full sm:w-auto">
               <PlusCircle className="h-4 w-4" aria-hidden="true" />
               Create Your First QR Code
             </Button>
@@ -195,49 +204,50 @@ export default function DashboardPage() {
           {qrCodes.map((qr) => (
             <div
               key={qr._id}
-              className="bg-canvas rounded-md border border-hairline p-5 flex flex-col sm:flex-row sm:items-center gap-4 hover:shadow-card transition-shadow duration-150"
+              className="bg-canvas rounded-md border border-hairline p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-4 hover:shadow-card transition-shadow duration-150"
             >
-              {/* Thumbnail */}
-              <div className="shrink-0 hidden sm:block">
-                <QRThumbnail
-                  data={`${typeof window !== "undefined" ? window.location.origin : "https://theqrcod.com"}/r/${qr.shortCode}`}
-                  design={qr.qrDesign || {}}
-                  size={64}
-                />
-              </div>
-
-              {/* Info */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <Link
-                    href={`/dashboard/${qr._id}`}
-                    className="text-base font-semibold text-ink hover:text-accent truncate"
-                  >
-                    {qr.name}
-                  </Link>
-                  <Badge variant={qr.status === "active" ? "success" : "warning"}>
-                    {qr.status}
-                  </Badge>
+              {/* Top row / Left section with Thumbnail + Info */}
+              <div className="flex items-start sm:items-center gap-3 flex-1 min-w-0">
+                <div className="shrink-0">
+                  <QRThumbnail
+                    data={`${typeof window !== "undefined" ? window.location.origin : "https://theqrcod.com"}/r/${qr.shortCode}`}
+                    design={qr.qrDesign || {}}
+                    size={52}
+                  />
                 </div>
-                <p className="text-sm text-body-mid truncate">{qr.targetUrl}</p>
-                <p className="text-xs text-mute mt-1">
-                  Created {new Date(qr.createdAt).toLocaleDateString()}
-                </p>
+
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1 flex-wrap">
+                    <Link
+                      href={`/dashboard/${qr._id}`}
+                      className="text-sm sm:text-base font-semibold text-ink hover:text-accent truncate max-w-[200px] sm:max-w-xs"
+                    >
+                      {qr.name}
+                    </Link>
+                    <Badge variant={qr.status === "active" ? "success" : "warning"}>
+                      {qr.status}
+                    </Badge>
+                  </div>
+                  <p className="text-xs sm:text-sm text-body-mid truncate">{qr.targetUrl}</p>
+                  <p className="text-[11px] sm:text-xs text-mute mt-1">
+                    Created {new Date(qr.createdAt).toLocaleDateString()}
+                  </p>
+                </div>
               </div>
 
-              {/* Stats */}
-              <div className="flex items-center gap-6 shrink-0">
-                <div className="text-center">
-                  <p className="text-xl font-semibold text-ink">{qr.totalScans}</p>
-                  <p className="text-xs text-mute">Scans</p>
+              {/* Bottom row / Right section with Stats + Actions */}
+              <div className="flex items-center justify-between sm:justify-end gap-4 shrink-0 pt-3 sm:pt-0 border-t sm:border-t-0 border-hairline">
+                <div className="text-left sm:text-center pr-2 border-r sm:border-r-0 border-hairline sm:pr-0">
+                  <p className="text-lg sm:text-xl font-semibold text-ink leading-none">{qr.totalScans}</p>
+                  <p className="text-[11px] sm:text-xs text-mute mt-0.5">Scans</p>
                 </div>
 
                 {/* Actions */}
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 bg-surface-soft/60 sm:bg-transparent p-1 sm:p-0 rounded-md">
                   <button
                     type="button"
                     onClick={() => copyLink(qr.shortCode, qr._id)}
-                    className="p-2 rounded-sm hover:bg-canvas-alt text-body-mid hover:text-ink transition-colors cursor-pointer"
+                    className="p-2 rounded-md sm:rounded-sm hover:bg-canvas-alt text-body-mid hover:text-ink transition-colors cursor-pointer"
                     title="Copy short link"
                   >
                     {copiedId === qr._id ? (
@@ -248,7 +258,7 @@ export default function DashboardPage() {
                   </button>
                   <Link
                     href={`/dashboard/${qr._id}`}
-                    className="p-2 rounded-sm hover:bg-canvas-alt text-body-mid hover:text-ink transition-colors"
+                    className="p-2 rounded-md sm:rounded-sm hover:bg-canvas-alt text-body-mid hover:text-ink transition-colors"
                     title="View analytics"
                   >
                     <BarChart3 className="h-4 w-4" />
@@ -257,7 +267,7 @@ export default function DashboardPage() {
                     href={qr.targetUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 rounded-sm hover:bg-canvas-alt text-body-mid hover:text-ink transition-colors"
+                    className="p-2 rounded-md sm:rounded-sm hover:bg-canvas-alt text-body-mid hover:text-ink transition-colors"
                     title="Open target URL"
                   >
                     <ExternalLink className="h-4 w-4" />
@@ -265,7 +275,7 @@ export default function DashboardPage() {
                   <button
                     type="button"
                     onClick={() => toggleStatus(qr._id, qr.status)}
-                    className="p-2 rounded-sm hover:bg-canvas-alt text-body-mid hover:text-ink transition-colors cursor-pointer"
+                    className="p-2 rounded-md sm:rounded-sm hover:bg-canvas-alt text-body-mid hover:text-ink transition-colors cursor-pointer"
                     title={qr.status === "active" ? "Pause" : "Activate"}
                   >
                     {qr.status === "active" ? (
@@ -277,7 +287,7 @@ export default function DashboardPage() {
                   <button
                     type="button"
                     onClick={() => deleteQR(qr._id)}
-                    className="p-2 rounded-sm hover:bg-error-light text-body-mid hover:text-error transition-colors cursor-pointer"
+                    className="p-2 rounded-md sm:rounded-sm hover:bg-error-light text-body-mid hover:text-error transition-colors cursor-pointer"
                     title="Delete"
                   >
                     <Trash2 className="h-4 w-4" />

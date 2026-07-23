@@ -1,0 +1,9 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /api
+Disallow: /r/
+
+# Sitemap location
+Sitemap: https://theqrcod.com/sitemap.xml
